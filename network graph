@@ -1,0 +1,24 @@
+import networkx as nx
+G = nx.Graph()
+
+G.clear()
+G.add_nodes_from(["Alpha","STS","JJK","gfgf",1,2,3,4,7,9])
+
+G.add_edge("Alpha","STS")
+G.add_edge("Alpha","Alpha")
+G.add_edge("JJK","Alpha")
+G.add_edge(1,2)
+G.add_edge(3,1)
+G.add_edge(2,4)
+G.add_edge(4,1)
+G.add_edge(9,1)
+G.add_edge(1,7)
+G.add_edge(2,9)
+G.add_edge("Alpha",1)
+G.add_edge("gfgf",1)
+nx.draw(G, with_labels=True, font_weight='bold', node_color ='#FFD700')
+
+A=nx.to_numpy_matrix(G)
+print(A)
+edge_list = G.edges()
+print("All the edges of a graph", edge_list)

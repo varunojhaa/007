@@ -1,0 +1,152 @@
+################################################RC LOW PASS FILTER
+d1 = schemdraw.Drawing()
+v0 = d1.add(elm.SourceSin(label = 'V'))
+d1.add(elm.Capacitor(d='Right', label='C'))
+d1.push()
+d1.add(elm.Line(d='Right'))
+d1.add(elm.Dot())
+d1.pop()
+d1.add(elm.Resistor(d='Down', label='R'))
+d1.push()
+d1.add(elm.Line(d='Right'))
+d1.add(elm.Dot())
+d1.pop()
+d1.add(elm.Line(d='Left'))
+d1.draw()
+#################################################RC HIGH PASS FILTER
+import schemdraw
+import schemdraw.elements as elm
+d1 = schemdraw.Drawing()
+v0 = d1.add(elm.SourceSin(label = 'V'))
+d1.add(elm.Resistor(d='Right', label='R'))
+d1.push()
+d1.add(elm.Line(d='Right'))
+d1.add(elm.Dot())
+d1.pop()
+d1.add(elm.Capacitor(d='Down', label='C'))
+d1.push()
+d1.add(elm.Line(d='Right'))
+d1.add(elm.Dot())
+d1.pop()
+d1.add(elm.Line(d='Left'))
+d1.draw()
+############################################BANDPASS FILTER LOW PASS RLC
+d1 = schemdraw.Drawing()
+d1.add(elm.SourceSin(label='V'))
+d1.add(elm.Resistor(d='Right',label="R"))
+d1.push()
+d1.add(elm.Line(d="right"))
+d1.push()
+d1.add(elm.Line(d="right"))
+d1.add(elm.Dot())
+d1.pop()
+d1.add(elm.Capacitor(d='down',label="C"))
+d1.add(elm.Line(d="right"))
+d1.add(elm.Dot())
+d1.pop()
+d1.add(elm.Inductor(d='down',label="L"))
+d1.push()
+d1.add(elm.Line(d="left"))
+d1.pop()
+d1.add(elm.Line(d="right"))
+d1.draw()
+#################################################Bandstop Filter
+d1 = schemdraw.Drawing()
+d1.add(elm.SourceSin(label="V"))
+d1.push()
+d1.add(elm.Line(d="up"))
+d1.add(elm.Capacitor(d="right",label="c"))
+d1.add(elm.Line(d="Down"))
+d1.add(elm.Line(d="right"))
+d1.add(elm.Dot())
+d1.pop()
+d1.add(elm.Inductor(d="Right",label="L"))
+d1.add(elm.Resistor(d='Down',label="R"))
+d1.push()
+d1.add(elm.Line(d="right"))
+d1.add(elm.Dot())
+d1.pop()
+d1.add(elm.Line(d="Left"))
+d1.draw()
+########################################################TRANSFER FUNCTION FOR LOW PASS FILTERS
+import numpy as np
+import scipy as sp
+from scipy import signal
+import matplotlib.pyplot as plt
+R=100
+C=10**(-6)
+sys=signal.TransferFunction(1.0,[R*C,1.0])
+w,mag,phase=signal.bode(sys)
+plt.figure()
+plt.semilogx(w,mag)
+plt.grid()
+plt.title("Amplitude(db)")
+plt.xlabel("Frequency")
+plt.figure()
+plt.semilogx(w,phase)
+plt.grid()
+plt.title("Phase Degree")
+plt.xlabel("Frequency")
+plt.show()
+##################################################################TRANSFER FUNCTION FOR HIGH PASS FILTER
+import numpy as np
+import scipy as sp
+from scipy import signal
+import matplotlib.pyplot as plt
+R=100
+C=10**(-6)
+sys=signal.TransferFunction([R*C,0.0],[R*C,1.0])
+w,mag,phase=signal.bode(sys)
+plt.figure()
+plt.semilogx(w,mag)
+plt.grid()
+plt.title("Amplitude(db)")
+plt.xlabel("Frequency")
+plt.figure()
+plt.semilogx(w,phase)
+plt.grid()
+plt.title("Phase Degree")
+plt.xlabel("Frequency")
+plt.show()
+################################################TRANSFER FUNCTION FOR BAND PASS FILTER
+import numpy as np
+import scipy as sp
+from scipy import signal
+import matplotlib.pyplot as plt
+R=100
+C=10**(-6)
+L=10**(-3)
+sys=signal.TransferFunction([L,0.0],[R*C*L,L,R])
+w,mag,phase=signal.bode(sys)
+plt.figure()
+plt.semilogx(w,mag)
+plt.grid()
+plt.title("Amplitude(db)")
+plt.xlabel("Frequency")
+plt.figure()
+plt.semilogx(w,phase)
+plt.grid()
+plt.title("Phase Degree")
+plt.xlabel("Frequency")
+plt.show()
+###############################################################################################TRANSFER FUNCTION FOR BAND STOP FILTER
+import numpy as np
+import scipy as sp
+from scipy import signal
+import matplotlib.pyplot as plt
+R=100
+C=10**(-6)
+L=10**(-3)
+sys=signal.TransferFunction([R],[R*L*C,L,R])
+w,mag,phase=signal.bode(sys)
+plt.figure()
+plt.semilogx(w,mag)
+plt.grid()
+plt.title("Amplitude(db)")
+plt.xlabel("Frequency")
+plt.figure()
+plt.semilogx(w,phase)
+plt.grid()
+plt.title("Phase Degree")
+plt.xlabel("Frequency")
+plt.show()
